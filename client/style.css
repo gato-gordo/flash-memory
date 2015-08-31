@@ -58,3 +58,10 @@ h1 {
   opacity: .50;
   cursor: pointer;
 }
+
+html, body, .container {
+  height: 100%;
+}
+textarea.form-control {
+  height: 100%;
+}

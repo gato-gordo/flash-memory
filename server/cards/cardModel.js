@@ -12,15 +12,7 @@ var CardSchema = new mongoose.Schema({
   back: {
     type: String,
     required: true
-  },
-
-  creat_at: {
-  	type: Date,
-  },
-
-  deck: {
-  	
-  }
+ } 
 });
 
 module.exports = mongoose.model('cards', CardSchema);

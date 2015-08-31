@@ -1,6 +1,3 @@
-
-
-
 var javascriptDeck = {
 	currentCard: 0,
 	initialize: function(){
