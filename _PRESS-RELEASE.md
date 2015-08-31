@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  > FlashMemory: A flashcard app for the web.
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Carry what you need to memorize with you everywhere. 
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > FlashMemory provides an online clearinghouse for users to view, create, manage, and share decks of flashcards that help them memorize the things they need to.  As a web app, a user's flashcards are available anywhere there is an internet connection.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Flashcards are an old, reliable technology for learning things, but they are bulky and not very portable.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > A web app that allows you to create, store, and view flashcards solves the portability problem.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "I generally want to create things that I myself fill a need I myself have but that there is no product to satisfy, and flash memory solves a problem I've had every since high school."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Load flashmemory.com and click the card on the screen: that's all you need to start testing your memory.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "My backpack ways 10 pounds less now that I use FlashMemory" -- Julie Spritzmeyer, UT Austin, Class fo 2015.
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Visit flashmemory.com to start flashing.
