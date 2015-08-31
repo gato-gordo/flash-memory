@@ -3,9 +3,9 @@ main {
   height: 100%;
 }
 
-ul.deck-controls {
+ul.deck-controls, div.card-controls {
   padding: 0;
-  margin-top: 1%;
+  margin-top: 2%;
   list-style-type: none;
   width: 50%;
   margin: 0 auto;
@@ -31,4 +31,8 @@ h1 {
 
 .back {
   display: none;
+}
+
+.backward, .forward {
+  display: inline-block;
 }
