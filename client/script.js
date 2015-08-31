@@ -7,8 +7,13 @@ Array.prototype.shuffle = function(){
 	}
 	return shuffled;
 }
+
 var javascriptDeck = {
 	currentCard: 0,
+	loadCardContent: function(){
+		$('.front p').text(javascriptDeck.cards[javascriptDeck.currentCard]["front"]);
+		$('.back p').text(javascriptDeck.cards[javascriptDeck.currentCard]["back"]);
+	},
 	forward: function(){
 		if(this.currentCard !== this.cards.length - 1 ){
 			this.currentCard += 1;
@@ -57,19 +62,16 @@ var javascriptDeck = {
 
 $(document).on('ready', function(){
 
-	$('.front p').text(javascriptDeck.cards[javascriptDeck.currentCard]["front"]);
-	$('.back p').text(javascriptDeck.cards[javascriptDeck.currentCard]["back"]);
+	javascriptDeck.loadCardContent();
 
 	$('.forward button').on('click', function(){
 		javascriptDeck.forward();
-		$('.front p').text(javascriptDeck.cards[javascriptDeck.currentCard]["front"]);
-		$('.back p').text(javascriptDeck.cards[javascriptDeck.currentCard]["back"]);
+		javascriptDeck.loadCardContent();
 	});
 
 	$('.backward button').on('click', function(){
 		javascriptDeck.backward()
-		$('.front p').text(javascriptDeck.cards[javascriptDeck.currentCard]["front"]);
-		$('.back p').text(javascriptDeck.cards[javascriptDeck.currentCard]["back"]);
+		javascriptDeck.loadCardContent();
 	});
 
   $('.card').on('click', function(){
