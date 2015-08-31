@@ -1,15 +1,23 @@
-Array.prototype.shuffle = function(){
-	var shuffled = [];
-	var el;
-	while(el = this.pop()){
-		var randIndex = Math.floor(Math.random() * shuffled.length);
-		shuffled.splice(randIndex, 0, el);
-	}
-	return shuffled;
-}
+
+
 
 var javascriptDeck = {
 	currentCard: 0,
+	initialize: function(){
+		this.shuffle();
+		this.currentCard = 0;
+		this.loadCardContent();
+	},
+	shuffle: function(){
+		var shuffled = [];
+		var cards = this.cards.slice();
+		var el;
+		while(el = cards.pop()){
+			var randIndex = Math.floor(Math.random() * shuffled.length);
+			shuffled.splice(randIndex, 0, el);
+		}
+		this.cards = shuffled;
+	},
 	loadCardContent: function(){
 		$('.front p').text(javascriptDeck.cards[javascriptDeck.currentCard]["front"]);
 		$('.back p').text(javascriptDeck.cards[javascriptDeck.currentCard]["back"]);
@@ -48,7 +56,7 @@ var javascriptDeck = {
 			back: "A value that cannot be changed once it is created.  Examples in JavaScript includes Numbers, Strings, and Booleans",
 		},
 			{
-			front: "Leixcal Scope",
+			front: "Lexical Scope",
 			back: "The regions in your source code where you can refer to a variable by name, without getting access errors.  The rules of lexical scope can be understood without running code, since it only concerns the areas of code where variable names will have meaning.",
 		},
 			{
@@ -62,7 +70,7 @@ var javascriptDeck = {
 
 $(document).on('ready', function(){
 
-	javascriptDeck.loadCardContent();
+	javascriptDeck.initialize();
 
 	$('.forward button').on('click', function(){
 		javascriptDeck.forward();
@@ -77,4 +85,9 @@ $(document).on('ready', function(){
   $('.card').on('click', function(){
     $('.back, .front').toggle();
   });
+
+  $('.shuffle').on('click', function(){
+  	javascriptDeck.initialize();
+  });
+
 });
