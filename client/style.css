@@ -53,3 +53,8 @@ h1 {
 .backward, .forward {
   display: inline-block;
 }
+
+.card-highlight {
+  opacity: .50;
+  cursor: pointer;
+}

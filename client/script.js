@@ -175,4 +175,12 @@ $(document).on('ready', function(){
   	javascriptDeck.renderTable($('.existing-cards'));
   });
 
+  $('body').on('mouseover', '.card', function() {
+  	$(this).addClass('card-highlight');
+	});
+
+	$('body').on('mouseleave', '.card', function() {
+  	$(this).removeClass('card-highlight');
+	});
+
 });
