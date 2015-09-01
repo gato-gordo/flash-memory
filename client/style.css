@@ -1,9 +1,18 @@
+html, body, .container {
+  height: 100%;
+}
+
 body {
   font-size: 16px;
 }
 
 header {
   margin: 1%;
+}
+
+
+h1 {
+  text-align: center;
 }
 
 main {
@@ -26,42 +35,59 @@ div.deck-controls button {
   margin-top: 1%;
 }
 
-h1 {
-  text-align: center;
-}
-
-.card {
-  height: 250px;
-  background-color: #eee;
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 1%;
-  line-height: 150%;
-}
-
-.front {
-  padding-top: 10%;
-  text-align: center;
-  font-size: 3em;
-  text-decoration: underline;
-}
-
-.back { 
-  padding: 5%;
-}
-
 .backward, .forward {
   display: inline-block;
 }
 
-.card:hover {
-  opacity: .50;
-  cursor: pointer;
-}
-
-html, body, .container {
-  height: 100%;
-}
 textarea.form-control {
   height: 100%;
+}
+
+.stage {
+  -webkit-perspective: 1000; 
+}
+
+.flashcard {
+  height: 300px;  
+  width: 500px; 
+  margin: 5% auto;
+  border: 1px solid gray; 
+  box-shadow: 2px 2px 2px #000;
+  -webkit-transform-style: preserve-3d;  
+  transition: all 0.3s;               
+  -webkit-transition: all 0.3s;
+}
+
+.flipped, .back {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg); 
+}
+
+.front, .back {
+  background-color: #eee;
+  height: 300px;          
+  width: 500px;
+  position: absolute;    
+  text-align: center;   
+  -webkit-backface-visibility: hidden;       
+}
+
+.front p {     
+  font-size: 3em;
+  margin-top: 20%; 
+}
+
+.back p {
+  font-size: 1.5em;
+  padding: 10% 5%;
+  text-align: justify;
+}
+
+
+.front:hover {
+  opacity: .50;
+}
+
+.front:hover, .back:hover {
+  cursor: pointer;
 }

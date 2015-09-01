@@ -2,12 +2,16 @@
   <div class="row">
     <div class="col-md-12">
       <h1>JavaScript Deck</h1>
-      <div ng-click="showFront = false" class="card front" ng-show="showFront">
-        <p class="lead" title="Click to flip">{{ cards[currentCard].front }}</p>
-      </div>
-      <div ng-click="showFront = true" class="card back" ng-show="!showFront">
-        <p title="Click to flip">{{ cards[currentCard].back }}</p>
-      </div>
+      <stabe>
+        <div class="flashcard" ng-class="{'flipped': !showFront}">
+          <div ng-click="showFront = false" class="card front" >
+            <p class="lead" >{{ cards[currentCard].front }}</p>
+          </div>
+          <div ng-click="showFront = true" class="card back">
+            <p>{{ cards[currentCard].back }}</p>
+          </div>
+        </div>
+      </stabe>
     </div>
   <div class="row">
     <div class="col-md-12">
