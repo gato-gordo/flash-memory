@@ -1,4 +1,4 @@
-angular.module('flash-memory.view-deck', [])
+angular.module('flash-memory.view-deck', ['ngAnimate'])
 
 .controller('ViewDeckController', function ($scope, Deck) {
 	$scope.currentCard = 0;
@@ -35,25 +35,16 @@ angular.module('flash-memory.view-deck', [])
 	$scope.shuffle = 	function(){
 		$scope.shaking = true;
 		setTimeout(function(){
-			$scope.shaking = false;
-		}, 300);
-		var shuffled = [];
-		var cards = $scope.cards.slice();
-		var el;
-		while(el = cards.pop()){
-			var randIndex = Math.floor(Math.random() * shuffled.length);
-			shuffled.splice(randIndex, 0, el);
-		}
-		$scope.cards = shuffled;
-		$scope.currentCard = 0;
-		$scope.showFront = true;
+			var shuffled = [];
+			var cards = $scope.cards.slice();
+			var el;
+			while(el = cards.pop()){
+				var randIndex = Math.floor(Math.random() * shuffled.length);
+				shuffled.splice(randIndex, 0, el);
+			}
+			$scope.cards = shuffled;
+			$scope.currentCard = 0;
+			$scope.showFront = true;
+		}, 1000);
 	}
-
-})
-
-.directive('shake-that', ['animate', function($animate){
-	 return {
-    require: '^form',
-    link: function(scope, element, attrs, form) {
-    }
-}]);
+});
