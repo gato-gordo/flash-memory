@@ -1,0 +1,32 @@
+<div class="container" ng-controller="ManageDeckController">
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="form-heading">Card</h1>
+        <form id ="form-card">
+          <div class="form-group">
+            <label for="form-card-front">Front</label>
+            <input name="front" type="text" ng-model="formCard.front"class="form-control" id="form-card-front" placeholder="50 characters or less">
+          </div>
+          <div class="form-group">
+            <label for="form-card-back">Back</label>
+            <textarea rows="8" name="back" class="form-control" ng-model="formCard.back" id="form-card-back" placeholder="500 characters or less."></textarea>
+          </div>
+        <button type="submit" class="btn btn-primary" ng-click="formHandler(formCard, currentCard)">{{formAction}}</button>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h1>Deck</h1>
+      <div class="existing-cards">
+        <table class="table">
+          <tbody>
+            <tr ng-repeat="card in cards">
+              <td>{{card.front}}</td>
+              <td><a ng-click="editCard($index)">Edit</a></td>
+              <td><a ng-click="removeCard(card._id, $index)">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

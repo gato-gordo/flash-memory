@@ -1,7 +1,6 @@
 angular.module('flash-memory.factories', [])
 
-.factory('ViewDeck', function ($http, $location, $window) {
-  // Your code here
+.factory('Deck', function ($http, $location, $window) {
   var getCards = function(){
     return $http({
       method: 'GET',
@@ -10,28 +9,46 @@ angular.module('flash-memory.factories', [])
     .then(function(resp){
       return resp.data;
     });
-  }
-
-  return {
-    getCards: getCards
   };
-});
 
-/*
-.factory('ManageDeck', function ($http, $location, $window) {
-  // Your code here
-  var addLink = function(link){
+  var addCard = function(card){
     return $http({
       method: 'POST',
-      url: '/api/links',
-      data: link ///JSON.stringify?
+      url: '/api/cards',
+      data: card
     })
     .then(function(resp){
-       return resp.data; //??? nothing right ?
+       return resp.data;
     });
   }
 
-  return {
-    addLink: addLink
+  var removeCard = function(id){
+    var url = '/api/cards/' + id;
+    return $http({
+      method: 'DELETE',
+      url: url,
+    })
+    .then(function(resp){
+       return resp.data;
+    });
   };
-})*/
+
+  var updateCard = function(card){
+    var url = '/api/cards/' + card._id;
+    return $http({
+      method: 'PUT',
+      url: url,
+      data: {front: card.front, back: card.back }
+    })
+    .then(function(resp){
+       return resp.data;
+    });
+  };
+
+  return {
+    getCards: getCards,
+    addCard: addCard,
+    removeCard: removeCard,
+    updateCard: updateCard
+  };
+});

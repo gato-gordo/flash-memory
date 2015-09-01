@@ -1,11 +1,11 @@
 angular.module('flash-memory.view-deck', [])
 
-.controller('ViewDeckController', function ($scope, ViewDeck) {
+.controller('ViewDeckController', function ($scope, Deck) {
 	$scope.currentCard = 0;
 	$scope.cards = [];
 
 	$scope.getCards =  function(){
-		return ViewDeck.getCards();
+		return Deck.getCards();
   };
 
   $scope.getCards().then(function(cards){

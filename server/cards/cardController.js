@@ -50,7 +50,6 @@ module.exports = {
   },
 
   update: function(req, res, next){
-  	
 	  var id = req.params.card_id, 
 	  		front = req.body.front, 
 	  		back  = req.body.back,
