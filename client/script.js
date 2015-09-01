@@ -6,7 +6,7 @@ var javascriptDeck = {
 		var deck = this;
 		return this.cardsFromStorage().then(function(cards){
 			cards.forEach(function(card){
-				card = {front: card.front, back: card.back };
+				card = {id: card._id, front: card.front, back: card.back };
 				deck.addCard(card);
 			});
 			deck.shuffle();
@@ -40,6 +40,9 @@ var javascriptDeck = {
 	},
 	populateCardForm: function(index){
 		var card = this.getCard(index);
+		$('#form-card').prepend('<input type="hidden" name="index" value="' + index +  '">');
+  	$('#form-card').prepend('<input type="hidden" name="id" value="' + card.id +  '">');
+  	$('#form-card [type="submit"]').text('Edit');
 		$('#form-card-front').val(card.front);
 	  $('#form-card-back').val(card.back);
 	},
@@ -48,28 +51,40 @@ var javascriptDeck = {
 		$('.front p').text(this.cards[index]["front"]);
 		$('.back p').text(this.cards[index]["back"]);
 	},
-	addCard: function(card){
-		this.cards.push(card);
+	postCard: function(card){
+		var deck = this;
 		$.ajax({
 			url: cardsServerUrl,
 			method: 'POST',
 			data: JSON.stringify(card),
 			contentType: "application/json",
 			dataType: 'json'
+		})
+		.then(function(card){
+			deck.addCard({id: card._id, front: card.front, back: card.back });
 		});
 	},
-	updateCard: function(card, index){
-		var url = this.cards[index] + encodeURIComponent(this.cards[index]["front"]);
+	addCard: function(card){
+		this.cards.push(card);
+	},
+	putCard: function(card, index){
+		var deck = this;
+		var url = cardsServerUrl + '/' + card.id;
+		
 		$.ajax({
 			url: cardsServerUrl,
 			method: 'PUT',
 			data: JSON.stringify(card),
 			contentType: "application/json",
 			dataType: 'json'
+		}).
+		then(function(card){
+			deck.updateCard(card, index);
 		});
-		this.cards[index] = card;
-
 	},
+	updateCard = function(card, index){
+		this.cards[index] = card;
+	}
 	getCard: function(index){
 		return this.cards[Number(index)];
 	},
@@ -145,12 +160,11 @@ $(document).on('ready', function(){
   	var action = $(this).find('[type="submit"]').text();
   	if(action === 'Create'){
   		var card = javascriptDeck.parseCardForm(values);
-  		javascriptDeck.addCard(card);
+  		javascriptDeck.postCard(card);
   	} else if (action === 'Edit'){
   		var card = javascriptDeck.parseCardForm(values.slice(1));
   		var index = parseInt(values[0]['value']);
-  		console.log(index);
-  		javascriptDeck.updateCard(card, index);
+  		javascriptDeck.putCard(card, index);
   	}
   	javascriptDeck.renderTable($('.existing-cards'));
   	$('input[type="hidden"]', this).remove();
@@ -167,8 +181,6 @@ $(document).on('ready', function(){
   		$(this).remove();
   	});
   	var cardIndex = $(this).attr('href');
-  	$('#form-card').prepend('<input type="hidden" name="index" value="' + cardIndex +  '">');
-  	$('#form-card [type="submit"]').text('Edit');
   	javascriptDeck.populateCardForm(cardIndex);
   });
 

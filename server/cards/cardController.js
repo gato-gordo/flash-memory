@@ -54,38 +54,46 @@ module.exports = {
 
   update: function(req, res, next){
   	
-  	var existingFront = req.url.slice(1);
-  	console.log(existingFront);
-  	/*
-    var front = req.body.front, back  = req.body.back;
-    var findOne = Q.nbind(Card.findOne, Card);
-		var updatedCard = {
-			front: front,
-			back: back
-		};
-		console.log(updateCard, Card.update);*/
-		res.send('Hello, Ignacio');
+    var id = req.params.card_id, front = req.body.front, back  = req.body.back;
+    console.log(req.body);
 
-   /*
-   findOne(front: existingFront})
+    var findCard = Q.nbind(Card.findOne, Card);
+
+    /*
+    findCard({_id: id})
+    	.then(function(card){
+        if (!card) {
+          next(new Error('Card cannot be retrieved.'));
+        } else {
+        	console.log('First console', card)
+        	var save = Q.nbind(Card.save, Card);
+    			card.front = front;
+    			card.back = back;
+    			console.log("Second console", card);
+    			save(card);
+        }
+      })
+      .then(function(card){
+      	if (!card) {
+          next(new Error('Card cannot be modified.'));
+        } else {
+        	res.json(card);
+        }
+      })
+      .fail(function (error) {
+        next(error);
+      });*/
+
+    
+    var findOneAndUpdate = Q.nbind(Card.findOneAndUpdate, Card);
+
+   findOneAndUpdate({"_id": id}, {"front": front, "back": back}, {"new": true})
     .then(function(card) {
-      if (!card) {
-        next(new Error('Card cannot be retrieved!'));
-      } else {
-     		var update = Q.nbind(Card.update, Card);
-    		var updatedCard = {
-      		front: front,
-      		back: back
-    		};
-      	update.(updatedCard);
-      }
-    })
-    .then(function (card) {
       res.json(card);
     })
     .fail(function (error) {
       next(error);
-    });*/
+    });
   },
 
   destroy: function(id){
