@@ -10,7 +10,6 @@ angular.module('flash-memory.view-deck', [])
 
   $scope.getCards().then(function(cards){
   	$scope.cards = cards;
-  	console.log($scope.cards);
   });;
 
   $scope.forward =  function(){
@@ -30,6 +29,7 @@ angular.module('flash-memory.view-deck', [])
 	}
 
 	$scope.shuffle = 	function(){
+		console.log('in shuffle');
 		var shuffled = [];
 		var cards = $scope.cards.slice();
 		var el;
