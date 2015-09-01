@@ -11,7 +11,7 @@ main {
   height: 100%;
 }
 
-ul.deck-controls, div.card-controls {
+div.deck-controls, div.card-controls {
   padding: 0;
   margin-top: 2%;
   list-style-type: none;
@@ -20,9 +20,10 @@ ul.deck-controls, div.card-controls {
   text-align: center;
 }
 
-ul.deck-controls li {
+div.deck-controls button {
   display: inline-block;
   padding: 5px;
+  margin-top: 1%;
 }
 
 h1 {

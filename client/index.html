@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html ng-app='flash-memory' lang="en">
 <head>
   <meta charset="utf-8">
   <title>Flash Memory</title>
@@ -13,51 +13,24 @@
       <div class="container">
         <a href="index.html" class="navbar-brand">Flash Memory</a>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="index.html">View Deck</a></li>
-          <li><a href="manage.html">Manage Deck</a></li>
+          <li><a href="/#">View Deck</a></li>
+          <li><a href="/#/manage">Manage Deck</a></li>
         </ul>
       </div>
     </nav>
   </header>
-  <main>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h1>JavaScript Deck</h1>
-          <div class="card front">
-            <p class="lead" title="Click to flip"></p>
-          </div>
-          <div class="card back">
-            <p title="Click to flip"></p>
-          </div>
-        </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card-controls">
-            <div class="backward">
-              <button type="button" class="btn btn-primary">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-              </button>
-            </div>
-            <div class="forward">
-              <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-right"></span></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <ul class="deck-controls">
-            <li class="shuffle"><a href="">Shuffle Deck</a></li>
-           </ul>
-        </div>
-      </div>
-    </div>
+  <main ng-view>
+
   </main>
   <footer>
   </footer>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular-resource.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/deck/manage/manage-deck.js"></script>
+  <script src="app/deck/view/view-deck.js"></script>
+  <script src="app/factories/flash-memory-factories.js"></script>
 </body>
 </html>
 
