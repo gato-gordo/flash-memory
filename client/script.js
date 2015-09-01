@@ -2,6 +2,7 @@ var cardsServerUrl = 'http://localhost:3000/api/cards';
 
 var javascriptDeck = {
 	currentCard: 0,
+	$el: 	$('.existing-cards'),
 	initialize: function(){
 		var deck = this;
 		return this.cardsFromStorage().then(function(cards){
@@ -11,7 +12,6 @@ var javascriptDeck = {
 			});
 			deck.shuffle();
 			deck.currentCard = 0;
-			deck.loadCardContent(0);
 		});
 	},
 	shuffle: function(){
@@ -40,8 +40,9 @@ var javascriptDeck = {
 	},
 	populateCardForm: function(index){
 		var card = this.getCard(index);
-		$('#form-card').prepend('<input type="hidden" name="index" value="' + index +  '">');
+
   	$('#form-card').prepend('<input type="hidden" name="id" value="' + card.id +  '">');
+  	$('#form-card').prepend('<input type="hidden" name="index" value="' + index +  '">');
   	$('#form-card [type="submit"]').text('Edit');
 		$('#form-card-front').val(card.front);
 	  $('#form-card-back').val(card.back);
@@ -66,25 +67,28 @@ var javascriptDeck = {
 	},
 	addCard: function(card){
 		this.cards.push(card);
+		this.renderTable();
 	},
-	putCard: function(card, index){
+	putCard: function(card, index, id){
+		console.log(card, index, id);
 		var deck = this;
-		var url = cardsServerUrl + '/' + card.id;
-		
+		var url = cardsServerUrl + '/' + id;
+
 		$.ajax({
-			url: cardsServerUrl,
+			url: url,
 			method: 'PUT',
 			data: JSON.stringify(card),
 			contentType: "application/json",
 			dataType: 'json'
 		}).
 		then(function(card){
-			deck.updateCard(card, index);
+			deck.updateCard(card[0], index);
 		});
 	},
-	updateCard = function(card, index){
+	updateCard: function(card, index){
 		this.cards[index] = card;
-	}
+		this.renderTable();
+	},
 	getCard: function(index){
 		return this.cards[Number(index)];
 	},
@@ -109,14 +113,15 @@ var javascriptDeck = {
 		return this.currentCard;
 	},
 	renderTable: function($el){
+		$el = $el || this.$el;
 		$el.html('');
 		var $table = $('<table class="table"><tbody></tbody></table>');
 		this.cards.forEach(function(card, index){
 			$table.append(
 				'<tr>' +
 					'<td>' + card.front +'</td>' +
-					'<td><a class="edit" href="' + index + ' ">Edit</a></td>' +
-					'<td><a class="delete" href="' + index + ' ">Delete</a></td>' +
+					'<td><a class="edit" href="' + index + '">Edit</a></td>' +
+					'<td><a class="delete" href="' + index + '">Delete</a></td>' +
 				'</tr>'
 			);
 		});
@@ -128,9 +133,10 @@ var javascriptDeck = {
 $(document).on('ready', function(){
 
 	javascriptDeck.initialize().then(function(){
-		$el = $('.existing-cards');
-		if($el.length){
-			javascriptDeck.renderTable($el);
+		if(javascriptDeck.$el.length){
+			javascriptDeck.renderTable();
+		} else {
+			javascriptDeck.loadCardContent();
 		}
 	});
 
@@ -153,6 +159,7 @@ $(document).on('ready', function(){
   	javascriptDeck.initialize();
   });
 
+  
   $('#form-card').on('submit', function(e){
   	e.preventDefault();
   	e.stopPropagation();
@@ -162,9 +169,10 @@ $(document).on('ready', function(){
   		var card = javascriptDeck.parseCardForm(values);
   		javascriptDeck.postCard(card);
   	} else if (action === 'Edit'){
-  		var card = javascriptDeck.parseCardForm(values.slice(1));
-  		var index = parseInt(values[0]['value']);
-  		javascriptDeck.putCard(card, index);
+  		var index = values[0]['value'];
+  		var id = values[1]['value'];
+  		var card = javascriptDeck.parseCardForm(values.slice(2));
+  		javascriptDeck.putCard(card, index, id);
   	}
   	javascriptDeck.renderTable($('.existing-cards'));
   	$('input[type="hidden"]', this).remove();
@@ -174,15 +182,15 @@ $(document).on('ready', function(){
 		$(this).find('[type="submit"]').text('Create');
   });
 
+  
   $('body').on('click', '.edit', function(e){
   	e.preventDefault();
   	e.stopPropagation();
-  	$('input[type="hidden"]', this).each(function(){
-  		$(this).remove();
-  	});
   	var cardIndex = $(this).attr('href');
   	javascriptDeck.populateCardForm(cardIndex);
   });
+
+  /*
 
   $('body').on('click', '.delete', function(e){
   	e.preventDefault();
@@ -190,7 +198,7 @@ $(document).on('ready', function(){
   	var cardIndex = parseInt($(this).attr('href'));
   	javascriptDeck.removeCard(cardIndex);
   	javascriptDeck.renderTable($('.existing-cards'));
-  });
+  });*/
 
   $('body').on('mouseover', '.card', function() {
   	$(this).addClass('card-highlight');
