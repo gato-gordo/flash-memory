@@ -27,7 +27,7 @@ module.exports = {
         if (!cards) {
           next(new Error('Card cannot be retrieved.'));
         } else {
-        	//console.log("Successful query", cards);
+        	console.log("Successful query", cards);
     			res.json(cards);
         }
       })
