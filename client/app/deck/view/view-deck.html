@@ -1,8 +1,8 @@
-<div class="container" ng-controller="ViewDeckController">
+<div class="container main-inner view-inner" ng-controller="ViewDeckController">
   <div class="row">
     <div class="col-md-12">
       <h1>JavaScript Deck</h1>
-      <stabe>
+      <stage ng-class="{'shake': shaking}">
         <div class="flashcard" ng-class="{'flipped': !showFront}">
           <div ng-click="showFront = false" class="card front" >
             <p class="lead" >{{ cards[currentCard].front }}</p>
@@ -11,7 +11,7 @@
             <p>{{ cards[currentCard].back }}</p>
           </div>
         </div>
-      </stabe>
+      </stage>
     </div>
   <div class="row">
     <div class="col-md-12">

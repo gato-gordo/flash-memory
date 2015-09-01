@@ -4,6 +4,7 @@ angular.module('flash-memory.view-deck', [])
 	$scope.currentCard = 0;
 	$scope.cards = [];
 	$scope.showFront = true;
+	$scope.shaking = false;
 
 	$scope.getCards =  function(){
 		return Deck.getCards();
@@ -32,7 +33,10 @@ angular.module('flash-memory.view-deck', [])
 	}
 
 	$scope.shuffle = 	function(){
-		console.log('in shuffle');
+		$scope.shaking = true;
+		setTimeout(function(){
+			$scope.shaking = false;
+		}, 300);
 		var shuffled = [];
 		var cards = $scope.cards.slice();
 		var el;
@@ -45,4 +49,11 @@ angular.module('flash-memory.view-deck', [])
 		$scope.showFront = true;
 	}
 
-});
+})
+
+.directive('shake-that', ['animate', function($animate){
+	 return {
+    require: '^form',
+    link: function(scope, element, attrs, form) {
+    }
+}]);

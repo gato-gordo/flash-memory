@@ -6,18 +6,55 @@ body {
   font-size: 16px;
 }
 
-header {
+header, footer {
   margin: 1%;
 }
 
 
 h1 {
+  color: #888;
   text-align: center;
 }
 
+p {
+  color: #666;
+}
+
+h1, p {
+  font-family: "Ubuntu";
+}
+
 main {
-  margin: 2% 0;
-  height: 100%;
+  margin: 2% 5%;
+  height: 70%;
+}
+
+.main-inner {
+  border-left: 2px solid #337ab7;
+  border-right: 2px solid #337ab7;
+}
+
+.view-inner {
+  margin: 0 5%;
+}
+
+.manage-inner {
+  padding: 0 5%;
+}
+
+.navbar {
+  background-color: #fa6447;
+  border: none;
+  color: white;
+}
+
+.navbar a {
+  color: inherit;
+}
+
+.navbar a:hover, .navbar-brand a:hover {
+  color: #fa6447;
+  background-color: #eee;
 }
 
 div.deck-controls, div.card-controls {
@@ -39,12 +76,16 @@ div.deck-controls button {
   display: inline-block;
 }
 
+input[type="text"].form-control {
+  background-color: #f8f786;
+}
 textarea.form-control {
   height: 100%;
+  background-color: #f8f786;
 }
 
 .stage {
-  -webkit-perspective: 1000; 
+  -webkit-perspective: 1000;
 }
 
 .flashcard {
@@ -64,7 +105,7 @@ textarea.form-control {
 }
 
 .front, .back {
-  background-color: #eee;
+  background-color: #f8f786;
   height: 300px;          
   width: 500px;
   position: absolute;    
@@ -78,8 +119,8 @@ textarea.form-control {
 }
 
 .back p {
-  font-size: 1.5em;
-  padding: 10% 5%;
+  font-size: 1.4em;
+  padding: 4%;
   text-align: justify;
 }
 
@@ -90,4 +131,17 @@ textarea.form-control {
 
 .front:hover, .back:hover {
   cursor: pointer;
+}
+
+@keyframes shake {
+  0% {transform: translateX(0);}
+  12.5% {transform: translateX(-6px) rotateY(-5deg)}
+  37.5% {transform: translateX(5px) rotateY(4deg)}
+  62.5% {transform: translateX(-3px) rotateY(-2deg)}
+  87.5% {transform: translateX(2px) rotateY(1deg)}
+  100% {transform: translateX(0)}
+}
+
+.shake {
+  animation: shake 400ms ease-in-out;
 }

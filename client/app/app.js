@@ -2,6 +2,7 @@ angular.module('flash-memory',
 	[
 	'ngRoute', 
 	'ngResource',
+	'ngAnimate',
 	'flash-memory.factories',
 	'flash-memory.view-deck',
 	'flash-memory.manage-deck'
