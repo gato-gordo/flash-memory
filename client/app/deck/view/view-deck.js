@@ -3,6 +3,7 @@ angular.module('flash-memory.view-deck', [])
 .controller('ViewDeckController', function ($scope, Deck) {
 	$scope.currentCard = 0;
 	$scope.cards = [];
+	$scope.showFront = true;
 
 	$scope.getCards =  function(){
 		return Deck.getCards();
@@ -18,6 +19,7 @@ angular.module('flash-memory.view-deck', [])
 		} else {
 			$scope.currentCard = 0;
 		}
+		$scope.showFront = true;
 	}
 
 	$scope.backward = function(){
@@ -26,6 +28,7 @@ angular.module('flash-memory.view-deck', [])
 		} else {
 			this.currentCard = $scope.cards.length - 1;
 		}
+		$scope.showFront = true;
 	}
 
 	$scope.shuffle = 	function(){
@@ -39,6 +42,7 @@ angular.module('flash-memory.view-deck', [])
 		}
 		$scope.cards = shuffled;
 		$scope.currentCard = 0;
+		$scope.showFront = true;
 	}
 
 });
