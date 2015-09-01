@@ -20,35 +20,47 @@ module.exports = {
       });
   },
 
-  index: function(){
-
+  index: function(req, res, next){
+  	var findAll = Q.nbind(Card.find, Card);
+  	findAll({})
+      .then(function (cards) {
+        if (!cards) {
+          next(new Error('Card cannot be retrieved.'));
+        } else {
+        	//console.log("Successful query", cards);
+    			res.json(cards);
+        }
+      })
+      .fail(function (error) {
+        next(error);
+      });
   },
 
   read: function(req, res, next){
-  	/*
-  	var id = req.body.id;
+  	var front = req.url.slice(1);
     var findCard = Q.nbind(Card.findOne, Card);
 
-    findCard({id: id})
+    findCard({front: front})
       .then(function (card) {
         if (!card) {
           next(new Error('Card cannot be retrieved.'));
         } else {
+        	console.log(card);
     			res.json(card);
         }
       })
       .fail(function (error) {
         next(error);
-      });*/
+      });
   },
 
-  update: function(id){
+  update: function(req, res, next){
   	/*
-    var id = req.url.id, front = req.body.front, back  = req.body.back;
-
+  	var existingFront = req.url.slice(1);
+    var front = req.body.front, back  = req.body.back;
     var findOne = Q.nbind(Card.findOne, Card);
 
-   findOne({id: id})
+   findOne(front: existingFront})
     .then(function(card) {
       if (!card) {
         next(new Error('Card cannot be retrieved!'));
