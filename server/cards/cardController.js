@@ -5,13 +5,12 @@ var Card = require('./cardModel.js'),
 module.exports = {
 
   create: function(req, res, next){
-    var front  = req.body.front, back  = req.body.back;
+    var front  = req.body.front, back  =  req.body.back;
     var create = Q.nbind(Card.create, Card);
     var newCard = {
       front: front,
       back: back
     };
-    
     create(newCard).then(function (card) {
         res.json(card);
       })
@@ -25,7 +24,7 @@ module.exports = {
   	findAll({})
       .then(function (cards) {
         if (!cards) {
-          next(new Error('Card cannot be retrieved.'));
+          next(new Error('Cards cannot be retrieved.'));
         } else {
         	console.log("Successful query", cards);
     			res.json(cards);
@@ -45,7 +44,6 @@ module.exports = {
         if (!card) {
           next(new Error('Card cannot be retrieved.'));
         } else {
-        	console.log(card);
     			res.json(card);
         }
       })
@@ -55,11 +53,20 @@ module.exports = {
   },
 
   update: function(req, res, next){
-  	/*
+  	
   	var existingFront = req.url.slice(1);
+  	console.log(existingFront);
+  	/*
     var front = req.body.front, back  = req.body.back;
     var findOne = Q.nbind(Card.findOne, Card);
+		var updatedCard = {
+			front: front,
+			back: back
+		};
+		console.log(updateCard, Card.update);*/
+		res.send('Hello, Ignacio');
 
+   /*
    findOne(front: existingFront})
     .then(function(card) {
       if (!card) {
@@ -74,7 +81,7 @@ module.exports = {
       }
     })
     .then(function (card) {
-      res.json({card});
+      res.json(card);
     })
     .fail(function (error) {
       next(error);

@@ -4,7 +4,7 @@ var javascriptDeck = {
 	currentCard: 0,
 	initialize: function(){
 		var deck = this;
-		this.cardsFromStorage().then(function(cards){
+		return this.cardsFromStorage().then(function(cards){
 			cards.forEach(function(card){
 				card = {front: card.front, back: card.back };
 				deck.addCard(card);
@@ -50,11 +50,25 @@ var javascriptDeck = {
 	},
 	addCard: function(card){
 		this.cards.push(card);
+		$.ajax({
+			url: cardsServerUrl,
+			method: 'POST',
+			data: JSON.stringify(card),
+			contentType: "application/json",
+			dataType: 'json'
+		});
 	},
 	updateCard: function(card, index){
-		console.log("Before assignment", this.cards[index]);
+		var url = this.cards[index] + encodeURIComponent(this.cards[index]["front"]);
+		$.ajax({
+			url: cardsServerUrl,
+			method: 'PUT',
+			data: JSON.stringify(card),
+			contentType: "application/json",
+			dataType: 'json'
+		});
 		this.cards[index] = card;
-		console.log("After assignment", this.cards[index]);
+
 	},
 	getCard: function(index){
 		return this.cards[Number(index)];
@@ -98,8 +112,13 @@ var javascriptDeck = {
 
 $(document).on('ready', function(){
 
-	javascriptDeck.initialize();
-	javascriptDeck.renderTable($('.existing-cards'));
+	javascriptDeck.initialize().then(function(){
+		$el = $('.existing-cards');
+		if($el.length){
+			javascriptDeck.renderTable($el);
+		}
+	});
+
 
 	$('.forward button').on('click', function(){
 		javascriptDeck.forward();
