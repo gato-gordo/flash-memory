@@ -70,7 +70,6 @@ var javascriptDeck = {
 		this.renderTable();
 	},
 	putCard: function(card, index, id){
-		console.log(card, index, id);
 		var deck = this;
 		var url = cardsServerUrl + '/' + id;
 
@@ -81,8 +80,8 @@ var javascriptDeck = {
 			contentType: "application/json",
 			dataType: 'json'
 		}).
-		then(function(card){
-			deck.updateCard(card[0], index);
+		then(function(data){
+			deck.updateCard(data[0], index);
 		});
 	},
 	updateCard: function(card, index){
@@ -92,10 +91,26 @@ var javascriptDeck = {
 	getCard: function(index){
 		return this.cards[Number(index)];
 	},
+	deleteCard: function(index){
+		var card = this.cards[index];
+		var id = card.id;
+		var deck = this;
+		var url = cardsServerUrl + '/' + id;
+		$.ajax({
+			url: url,
+			method: 'DELETE',
+			data: JSON.stringify(card),
+			contentType: "application/json",
+			dataType: 'json'
+		}).
+		then(function(data){
+			deck.removeCard(index);
+		});
+	},
 	removeCard: function(index){
-		return this.cards.splice(index, 1)[0];
-	}
-	,
+		this.cards.splice(index, 1)[0];
+		this.renderTable();
+	},
 	forward: function(){
 		if(this.currentCard !== this.cards.length - 1 ){
 			this.currentCard += 1;
@@ -190,15 +205,13 @@ $(document).on('ready', function(){
   	javascriptDeck.populateCardForm(cardIndex);
   });
 
-  /*
-
   $('body').on('click', '.delete', function(e){
   	e.preventDefault();
   	e.stopPropagation();
-  	var cardIndex = parseInt($(this).attr('href'));
-  	javascriptDeck.removeCard(cardIndex);
-  	javascriptDeck.renderTable($('.existing-cards'));
-  });*/
+  	var cardIndex = $(this).attr('href');
+  	javascriptDeck.deleteCard(cardIndex);
+  	javascriptDeck.renderTable();
+  });
 
   $('body').on('mouseover', '.card', function() {
   	$(this).addClass('card-highlight');
