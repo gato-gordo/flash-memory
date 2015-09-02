@@ -2,8 +2,10 @@
       mongoose    = require('mongoose');
 
 var app = express();
+//mongoose.connect('mongodb://localhost/flash-memory'); // connect to mongo database named flash-memory
+mongoose.connect('mongodb://heroku_lvh3tcdg:heroku_lvh3tcdg>@ds035653.mongolab.com:35653/heroku_lvh3tcdg');
+//for heroku deployment
 
-mongoose.connect('mongodb://localhost/flash-memory'); // connect to mongo database named flash-memory 
 
 // configure our server with all the middleware and and routing
 require('./config/middleware.js')(app, express);
