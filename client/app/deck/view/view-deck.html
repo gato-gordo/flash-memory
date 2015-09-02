@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <h1>JavaScript Deck</h1>
       <stage>
-        <div ng-class="{'shaking': shake}" class="flashcard" ng-class="{'flipped': !showFront}">
+        <div class="flashcard" ng-class="{'flipped': !showFront}">
           <div ng-click="showFront = false" class="card front" >
             <p class="lead" >{{ cards[currentCard].front }}</p>
           </div>

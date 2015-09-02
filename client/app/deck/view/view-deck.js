@@ -4,7 +4,6 @@ angular.module('flash-memory.view-deck', ['ngAnimate'])
 	$scope.currentCard = 0;
 	$scope.cards = [];
 	$scope.showFront = true;
-	$scope.shaking = false;
 
 	$scope.getCards =  function(){
 		return Deck.getCards();
@@ -33,18 +32,15 @@ angular.module('flash-memory.view-deck', ['ngAnimate'])
 	}
 
 	$scope.shuffle = 	function(){
-		$scope.shaking = true;
-		setTimeout(function(){
-			var shuffled = [];
-			var cards = $scope.cards.slice();
-			var el;
-			while(el = cards.pop()){
-				var randIndex = Math.floor(Math.random() * shuffled.length);
-				shuffled.splice(randIndex, 0, el);
-			}
-			$scope.cards = shuffled;
-			$scope.currentCard = 0;
-			$scope.showFront = true;
-		}, 1000);
+		var shuffled = [];
+		var cards = $scope.cards.slice();
+		var el;
+		while(el = cards.pop()){
+			var randIndex = Math.floor(Math.random() * shuffled.length);
+			shuffled.splice(randIndex, 0, el);
+		}
+		$scope.cards = shuffled;
+		$scope.currentCard = 0;
+		$scope.showFront = true;
 	}
 });
