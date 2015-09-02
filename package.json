@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "karma start --browsers PhantomJS"
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
